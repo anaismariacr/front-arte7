@@ -5,12 +5,14 @@ interface ActorState {
   actors: Actor[];
   loading: boolean;
 
+  //actions que tiene el store
   loadActors: () => Promise<void>;
   removeActor: (id: string) => Promise<void>;
   editActor: (id: string, data: CreateActorPayload) => Promise<void>;
 }
 
 export const useActorStore = create<ActorState>((set) => ({
+  //initial state
   actors: [],
   loading: false,
 

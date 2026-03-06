@@ -19,12 +19,7 @@ export default function ActorForm({
   defaultValues,
   isSubmitting,
 }: ActorFormProps) {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<ActorFormData>({
+  const {register, handleSubmit,reset, formState: { errors },} = useForm<ActorFormData>({
     resolver: zodResolver(actorFormSchema),
     defaultValues
   });

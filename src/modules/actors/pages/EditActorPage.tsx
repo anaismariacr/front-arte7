@@ -1,58 +1,27 @@
-/*"use client";
-
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import ActorFormPage from "../pages/ActorFormPage";
-import { fetchActorById, updateActor } from "../services/actorService";
-import { ActorFormData } from "../validation/actorFormSchema";
-
-export default function EditActorPage() {
-
-  const params = useParams();
-  const [actor, setActor] = useState<ActorFormData>();
-
-  useEffect(() => {
-    fetchActorById(params.id as string).then(setActor);
-  }, [params.id]);
-
-  if (!actor) return <p>Loading...</p>;
-
-  const handleUpdateActor = async (data: ActorFormData) => {
-    await updateActor(params.id as string, data);
-  };
-
-  return (
-    <ActorFormPage
-      title="Editar Actor"
-      defaultValues={actor}
-      onSubmit={handleUpdateActor}
-    />
-  );
-}*/
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import ActorForm from "../ui/ActorForm";
 import { ActorFormData } from "../validation/actorFormSchema";
-import { fetchActorById, updateActor } from "../services/actorService";
+import { fetchActorById } from "../services/actorService";
 import { useActorStore } from "@/shared/store/useActorStore";
 
 export default function EditActorPage() {
+  //actor tiene info del actor que se busco
   const [actor, setActor] = useState<ActorFormData | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  //maneja el estado del edit del actor
+  //no llama service directamente
   const editActor = useActorStore((state) => state.editActor);
-
+  
+  //redirect
   const router = useRouter();
+  //coge el id del actor del url
   const params = useParams();
 
-  /*useEffect(() => {
-    fetchActorById(params.id as string).then((data) => {
-      setActor(data);
-    });
-  }, [params.id]);*/
-
+  //fetch the actor por id
+  //settea los valores del actor fetcheado para mostrarlos en el form
   useEffect(() => {
   fetchActorById(params.id as string).then((data) => {
     setActor({
@@ -65,20 +34,12 @@ export default function EditActorPage() {
   });
 }, [params.id]);
 
-
-  /*const handleUpdateActor = async (data: ActorFormData) => {
-    console.log("form data", data);
-    setIsSubmitting(true);
-
-    await updateActor(params.id as string, data);
-
-    router.push("/actors");
-  };*/
-
   const handleUpdateActor = async (data: ActorFormData) => {
     try{
       setIsSubmitting(true);
       
+      //usa edit actor del useActor store
+      //el store se encarga de llamar a servicios
       await editActor(params.id as string, data);
       
       console.log("ACTOR UPDATED")
@@ -91,16 +52,9 @@ export default function EditActorPage() {
       setIsSubmitting(false);
     }
     
-    //console.log("SUBMIT CLICKED", data);
-    //console.log("form data", data);
-
-    //setIsSubmitting(true);
-    //console.log("CALLING editActor");
-    //await editActor(params.id as string, data);
-    //await updateActor(params.id as string, data);
-    //router.push("/actors");
   };
-
+  //por si data no se ha cargado yet
+  //no renderiza form hasta que se cargue el actor
   if (!actor) return <p>Loading...</p>;
 
   return (

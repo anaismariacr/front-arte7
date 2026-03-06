@@ -22,6 +22,7 @@ export interface Actor {
   movies: Movie[];
 }
 
+//es el mismo que para editar actor tambien
 export interface CreateActorPayload {
   name: string;
   photo: string;

@@ -1,23 +1,3 @@
-/*"use client";
-
-import ActorFormPage from "../pages/ActorFormPage";
-import { createActor } from "../services/actorService";
-import { ActorFormData } from "../validation/actorFormSchema";
-
-export default function CreateActorPage() {
-
-  const handleCreateActor = async (data: ActorFormData) => {
-    await createActor(data);
-  };
-
-  return (
-    <ActorFormPage
-      title="Crear Nuevo Actor"
-      onSubmit={handleCreateActor}
-    />
-  );
-}*/
-
 "use client";
 
 import { useState } from "react";
@@ -28,21 +8,28 @@ import { createActor } from "../services/actorService";
 import { useNotificationStore } from "@/shared/store/useNotificationStore";
 
 export default function CreateActorPage() {
+  //revisa si esta submitting rn o no, para definir como mostrar boton
   const [isSubmitting, setIsSubmitting] = useState(false);
+  //posibles errores al crear actor
   const [error, setError] = useState<string | null>(null);
+  //permite que componente redirija
   const router = useRouter(); 
 
+  //usa show notification del store de notificaciones
   const showNotification = useNotificationStore(
     (state) => state.showNotification
   );
-
+  //logica para manejar la creacion del actor
   const handleCreateActor = async (data: ActorFormData) => {
     setIsSubmitting(true);
     setError(null);
-    
+
+    //llama a la funcion de crear actor del service
+    //le pasa data del form
     try{
       await createActor(data);
       showNotification("Actor created successfully!", "success");
+      //redirect a actores despues de crear
       router.push("/actors");
     } catch (err) {
       setError(
