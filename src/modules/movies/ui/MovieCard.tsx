@@ -14,11 +14,12 @@ export default function MovieCard({ movie }: Props) {
         <div className="actor-card">
             <div style={{ color: "black" }} >
                 <h2>{ movie.title } </h2>
-                <p>{ new Date(movie.releaseDate). toLocaleDateString('en-GB', {
+                <p>Release Date: { new Date(movie.releaseDate). toLocaleDateString('en-GB', {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit'
                 })}</p>
+                <p>Actor: {movie.actors.map((actor) => actor.name).join(", ")}</p>
             </div>
         </div>
     );
