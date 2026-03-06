@@ -16,25 +16,24 @@ export const useActorStore = create<ActorState>((set) => ({
   actors: [],
   loading: false,
 
+  //llama fetch actors del servicio y setea el estado de actors y loading
   loadActors: async () => {
     set({ loading: true });
-
     const actors = await fetchActors();
-
-    set({
-      actors,
-      loading: false,
-    });
+    set({ actors, loading: false, });
   },
 
+  //llama remove actor del servicio
+  //actualiza estado de actors filtrando el eliminado
   removeActor: async (id: string) => {
     await deleteActor(id);
-
     set((state) => ({
       actors: state.actors.filter((actor) => actor.id !== id),
     }));
   },
-
+  
+  //llama update actor del servicio
+  //actualiza el estado de actors mapeando el actualizado
   editActor: async (id, data) => {
     const updated = await updateActor(id, data);
 
