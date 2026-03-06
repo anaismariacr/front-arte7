@@ -6,6 +6,7 @@ export default function Navbar() {
       <nav>
         <Link href="/actors">Actors</Link>
         <Link href="/crear">Create Actor</Link>
+        <Link href="/movies">Movies</Link>
       </nav>
     </div>
   );

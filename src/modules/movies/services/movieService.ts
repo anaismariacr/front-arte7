@@ -1,35 +1,31 @@
 //src/modules/actors/services/actorService.ts
 import { fetcher } from "@/shared/services/http";
-import { Movie } from "@/modules/movies/services/movieService";
+import { Actor } from "@/modules/actors/services/actorService";
 
-
-export interface Actor {
+export interface Movie {
   id: string;
-  name: string;
-  photo: string;
-  nationality: string;
-  birthDate: string;
-  biography: string;
-  movies: Movie[];
+  title: string;
+  poster: string;
+  duration: number;
+  country: string;
+  releaseDate: string;
+  popularity: number;
+  director: string;
+  actors: Actor[];
 }
 
-//es el mismo que para editar actor tambien
-export interface CreateActorPayload {
-  name: string;
-  photo: string;
-  nationality: string;
-  birthDate: string;
-  biography: string;
-}
-
-export const fetchActors = (): Promise<Actor[]> => {
+export const fetchMovies = (): Promise<Movie[]> => {
   // We call the GET /services endpoint.
   // The fetcher takes care of the base URL and error handling.
-  return fetcher<Actor[]>("/api/v1/actors");
+  return fetcher<Movie[]>("/api/v1/movies");
 };
 
-export const createActor = (payload: CreateActorPayload): Promise<Actor> => {
-  return fetcher<Actor>("/api/v1/actors", {
+export const fetchMovieById = (id: string): Promise<Movie> => {
+  return fetcher<Movie>(`/api/v1/movies/${id}`);
+};
+
+/*export const createMovie = (payload: CreateMoviePayload): Promise<Movie> => {
+  return fetcher<Movie>("/api/v1/movies", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -57,4 +53,4 @@ export const deleteActor = (id: string): Promise<void> => {
 
 export const fetchActorById = (id: string): Promise<Actor> => {
   return fetcher<Actor>(`/api/v1/actors/${id}`);
-};
+};*/
