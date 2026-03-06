@@ -27,6 +27,8 @@ export async function fetcher<T>(
         },
     });
 
+    console.log("FETCH:", options?.method, url)
+
     // If the response is not successful (status code is not in the 200-299 range),
     // we throw an error so it can be caught by our components.
     if(!response.ok) {

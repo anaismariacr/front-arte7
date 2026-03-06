@@ -74,12 +74,31 @@ export default function EditActorPage() {
 
     router.push("/actors");
   };*/
-  const handleUpdateActor = async (data: ActorFormData) => {
-    console.log("form data", data);
 
-    setIsSubmitting(true);
-    await editActor(params.id as string, data);
-    router.push("/actors");
+  const handleUpdateActor = async (data: ActorFormData) => {
+    try{
+      setIsSubmitting(true);
+      
+      await editActor(params.id as string, data);
+      
+      console.log("ACTOR UPDATED")
+      
+      router.push("/actors");
+      router.refresh();
+    } catch (error) {
+      console.error("Error updating actor:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+    
+    //console.log("SUBMIT CLICKED", data);
+    //console.log("form data", data);
+
+    //setIsSubmitting(true);
+    //console.log("CALLING editActor");
+    //await editActor(params.id as string, data);
+    //await updateActor(params.id as string, data);
+    //router.push("/actors");
   };
 
   if (!actor) return <p>Loading...</p>;

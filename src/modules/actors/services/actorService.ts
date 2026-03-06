@@ -1,6 +1,5 @@
 //src/modules/actors/services/actorService.ts
 import { fetcher } from "@/shared/services/http";
-import { ActorFormData } from "../validation/actorFormSchema";
 
 //temp
 export interface Movie {
@@ -48,6 +47,7 @@ export const createActor = (payload: CreateActorPayload): Promise<Actor> => {
 };
 
 export const updateActor = (id: string, payload: CreateActorPayload): Promise<Actor> => {
+  console.log("UPDATING ACTOR", id, payload);
   return fetcher<Actor>(`/api/v1/actors/${id}`, {
     method: "PUT",
     headers: {
