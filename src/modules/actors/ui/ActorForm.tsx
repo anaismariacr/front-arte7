@@ -1,79 +1,108 @@
 "use client";
 
-import { useState } from "react";
-import { createActor, CreateActorPayload, Actor } from "../services/actorService";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  actorFormSchema,
+  ActorFormData,
+} from "../validation/actorFormSchema";
 
-interface Props {
-  onActorCreated: (newActor: Actor) => void;
+interface ActorFormProps {
+  onSubmit: SubmitHandler<ActorFormData>;
+  defaultValues?: ActorFormData;
+  isSubmitting: boolean; 
 }
 
-const emptyForm: CreateActorPayload = {
-  name: "",
-  photo: "",
-  nationality: "",
-  birthDate: "",
-  biography: "",
-};
-
-export default function ActorForm({ onActorCreated }: Props) {
-  const [form, setForm] = useState<CreateActorPayload>(emptyForm);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // Single handler for all fields — reads the input's name attribute
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();           // prevents page reload
-    setLoading(true);
-    setError(null);
-
-    try {
-      const newActor = await createActor(form);
-      onActorCreated(newActor);   // bubble the new actor up to the page
-      setForm(emptyForm);         // reset form after success
-    } catch {
-      setError("Failed to create actor. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
+export default function ActorForm({
+  onSubmit,
+  defaultValues,
+  isSubmitting,
+}: ActorFormProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ActorFormData>({
+    resolver: zodResolver(actorFormSchema),
+    defaultValues: {
+      ...defaultValues,
+    },
+  });
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name</label>
-        <input name="name" value={form.name} onChange={handleChange} required />
+    <form onSubmit = {handleSubmit(onSubmit)} className = "space-y-4">
+      <div className="form-container">
+        <label htmlFor="name" className="block font-medium">
+          Name:
+        </label>
+        <input
+          id="name"
+          {...register("name")}
+          className="w-full p-2 border rounded"
+        />
+        {errors.name && (
+          <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+        )}
       </div>
-
-      <div>
-        <label>Photo URL</label>
-        <input name="photo" value={form.photo} onChange={handleChange} />
+      <div className="form-container">
+        <label htmlFor="photo" className="block font-medium">
+          Photo:
+        </label>
+        <input
+          id="photo"
+          {...register("photo")}
+          className="w-full p-2 border rounded"
+        />
+        {errors.photo && (
+          <p className="text-red-500 text-sm mt-1">{errors.photo.message}</p>
+        )}
       </div>
-
-      <div>
-        <label>Nationality</label>
-        <input name="nationality" value={form.nationality} onChange={handleChange} />
+      <div className="form-container">
+        <label htmlFor="nationality" className="block font-medium">
+          Nationality:
+        </label>
+        <input
+          id="nationality"
+          {...register("nationality")}
+          className="w-full p-2 border rounded"
+        />
+        {errors.nationality && (
+          <p className="text-red-500 text-sm mt-1">{errors.nationality.message}</p>
+        )}
       </div>
-
-      <div>
-        <label>Birth Date</label>
-        <input name="birthDate" type="date" value={form.birthDate} onChange={handleChange} />
+      <div className="form-container">
+        <label htmlFor="birthDate" className="block font-medium">
+          Birth Date:
+        </label>
+        <input
+          id="birthDate"
+          {...register("birthDate")}
+          className="w-full p-2 border rounded"
+        />
+        {errors.birthDate && (
+          <p className="text-red-500 text-sm mt-1">{errors.birthDate.message}</p>
+        )}
       </div>
-
-      <div>
-        <label>Biography</label>
-        <textarea name="biography" value={form.biography} onChange={handleChange} rows={4} />
+      <div className="form-container">
+        <label htmlFor="biography" className="block font-medium">
+          Biography:
+        </label>
+        <input
+          id="biography"
+          {...register("biography")}
+          className="w-full p-2 border rounded"
+        />
+        {errors.biography && (
+          <p className="text-red-500 text-sm mt-1">{errors.biography.message}</p>
+        )}
       </div>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <button type="submit" disabled={loading}>
-        {loading ? "Creating..." : "Create Actor"}
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="block mx-auto bg-white text-black font-bold py-2 px-6 rounded hover:bg-gray-200 disabled:bg-gray-300"
+      >
+        {isSubmitting ? "Saving..." : "Save Actor"}
       </button>
     </form>
-  );
+  )
 }
