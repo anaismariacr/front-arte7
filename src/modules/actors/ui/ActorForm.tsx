@@ -26,9 +26,9 @@ export default function ActorForm({
     formState: { errors },
   } = useForm<ActorFormData>({
     resolver: zodResolver(actorFormSchema),
-    //defaultValues: {
-    //  ...defaultValues,
-    //},
+    defaultValues: {
+      ...defaultValues,
+    },
   });
   
   useEffect(() => {
@@ -38,7 +38,13 @@ export default function ActorForm({
   }, [defaultValues, reset]);
 
   return (
-    <form onSubmit = {handleSubmit(onSubmit)} className = "space-y-4">
+    <form
+      onSubmit={handleSubmit((data) => {
+        console.log("FORM DATA", data);
+        onSubmit(data);
+      })}
+      className="space-y-4"
+    >
       <div className="form-container">
         <label htmlFor="name" className="block font-medium">
           Name:
@@ -114,3 +120,6 @@ export default function ActorForm({
     </form>
   )
 }
+
+
+//    <form onSubmit = {handleSubmit(onSubmit)} className = "space-y-4">

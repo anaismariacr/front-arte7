@@ -1,5 +1,6 @@
 //src/modules/actors/services/actorService.ts
 import { fetcher } from "@/shared/services/http";
+import { ActorFormData } from "../validation/actorFormSchema";
 
 //temp
 export interface Movie {

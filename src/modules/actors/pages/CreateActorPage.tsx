@@ -1,3 +1,23 @@
+/*"use client";
+
+import ActorFormPage from "../pages/ActorFormPage";
+import { createActor } from "../services/actorService";
+import { ActorFormData } from "../validation/actorFormSchema";
+
+export default function CreateActorPage() {
+
+  const handleCreateActor = async (data: ActorFormData) => {
+    await createActor(data);
+  };
+
+  return (
+    <ActorFormPage
+      title="Crear Nuevo Actor"
+      onSubmit={handleCreateActor}
+    />
+  );
+}*/
+
 "use client";
 
 import { useState } from "react";

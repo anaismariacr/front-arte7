@@ -5,9 +5,10 @@ import { Actor } from "../services/actorService";
 
 interface Props {
   actor: Actor;
+  onDelete: (id: string) => void;
 }
 
-export default function ActorCard({ actor}: Props) {
+export default function ActorCard({ actor, onDelete }: Props) {
     const router = useRouter();
 
     return (
@@ -28,6 +29,12 @@ export default function ActorCard({ actor}: Props) {
             >
                 Editar
             </button>
+            <button
+          onClick={() => onDelete(actor.id)}
+          className="bg-red-500 text-white px-3 py-1 rounded"
+        >
+          Eliminar
+        </button>
         </div>
     );
 }

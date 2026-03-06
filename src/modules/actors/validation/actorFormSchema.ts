@@ -4,7 +4,7 @@ export const actorFormSchema = z.object({
     name: z.string().min(1, "Name is required"),
     photo: z.string().url("Must be a valid URL"),
     nationality: z.string().min(1, "Nationality is required"),
-    birthDate: z.string().datetime("Must be a valid date"),
+    birthDate: z.string().min(1, "Birth date is required"),
     biography: z.string().min(1, "Biography is required"),
 });
 

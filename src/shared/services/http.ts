@@ -37,6 +37,11 @@ export async function fetcher<T>(
         );
     }
 
+    //add para que no se rompa con delete
+    if (response.status === 204) {
+        return undefined as T;
+    }
+
     // If the response is successful, we parse it as JSON.
     return response.json() as Promise<T>;
 }

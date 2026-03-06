@@ -1,23 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { fetchActors, Actor } from "../services/actorService";
+import { useEffect } from "react";
 import ActorCard from "./ActorCard";
+import { useActorStore } from "@/shared/store/useActorStore";
 
 export default function ActorList() {
-  const [actors, setActors] = useState<Actor[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { actors, loading, loadActors, removeActor } = useActorStore();
 
   useEffect(() => {
-    fetchActors()
-      .then((data) => setActors(data))
-      .catch(() => setError("Failed to load actors"))
-      .finally(() => setLoading(false));
-  }, []);
+    loadActors();
+  }, [loadActors]);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
 
   return (
     <div className="actors-container">
@@ -25,7 +19,8 @@ export default function ActorList() {
         {actors.map((actor) => (
           <ActorCard 
             key={actor.id} 
-            actor={actor}/>
+            actor={actor}
+            onDelete={removeActor}/>
         ))}
       </div>
     </div>
