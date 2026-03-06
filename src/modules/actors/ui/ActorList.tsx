@@ -23,7 +23,9 @@ export default function ActorList() {
     <div className="actors-container">
       <div className="actors-grid">
         {actors.map((actor) => (
-          <ActorCard key={actor.id} actor={actor} />
+          <ActorCard 
+            key={actor.id} 
+            actor={actor}/>
         ))}
       </div>
     </div>

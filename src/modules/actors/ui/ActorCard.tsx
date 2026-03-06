@@ -1,10 +1,15 @@
+"use client";
+
+import { useRouter }from "next/navigation";
 import { Actor } from "../services/actorService";
 
 interface Props {
   actor: Actor;
 }
 
-export default function ActorCard({ actor }: Props) {
+export default function ActorCard({ actor}: Props) {
+    const router = useRouter();
+
     return (
         <div className="actor-card">
             <div style={{ color: "black" }} >
@@ -17,6 +22,12 @@ export default function ActorCard({ actor }: Props) {
                     day: 'numeric'
                 })}</p>
             </div>
+            <button
+                onClick={() => router.push(`/actors/edit/${actor.id}`)}
+                className="mt-2 bg-blue-500 text-white px-3 py-1 rounded"
+            >
+                Editar
+            </button>
         </div>
     );
 }

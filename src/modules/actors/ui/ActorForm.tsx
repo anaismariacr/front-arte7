@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   actorFormSchema,
@@ -21,13 +22,20 @@ export default function ActorForm({
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ActorFormData>({
     resolver: zodResolver(actorFormSchema),
-    defaultValues: {
-      ...defaultValues,
-    },
+    //defaultValues: {
+    //  ...defaultValues,
+    //},
   });
+  
+  useEffect(() => {
+    if(defaultValues) {
+      reset(defaultValues);
+    }
+  }, [defaultValues, reset]);
 
   return (
     <form onSubmit = {handleSubmit(onSubmit)} className = "space-y-4">

@@ -1,57 +1,47 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import ActorForm from "../ui/ActorForm";
 import { ActorFormData } from "../validation/actorFormSchema";
 import { createActor } from "../services/actorService";
+import { useNotificationStore } from "@/shared/store/useNotificationStore";
 
 export default function CreateActorPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter(); 
+
+  const showNotification = useNotificationStore(
+    (state) => state.showNotification
+  );
 
   const handleCreateActor = async (data: ActorFormData) => {
     setIsSubmitting(true);
-    console.log("Data to submit:", data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await createActor(data);
-    console.log("Actor created successfully");
-    setIsSubmitting(false);
+    setError(null);
+    
+    try{
+      await createActor(data);
+      showNotification("Actor created successfully!", "success");
+      router.push("/actors");
+    } catch (err) {
+      setError(
+        err instanceof Error
+        ? err.message
+        : "An error ocurred while creating the actor."
+      );
+    } finally {
+      setIsSubmitting(false);
+      console.log("Actor created successfully");
+      console.log(data);
+    }
   };
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">Crear Nuevo Servicio</h1>
+      <h1 className="text-3xl font-bold mb-6">Crear Nuevo Actor</h1>
       <ActorForm onSubmit={handleCreateActor} isSubmitting={isSubmitting} />
+      {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
   );
 }
-
-/*"use client";
-
-import { useState } from "react";
-import { Actor } from "../services/actorService";
-import ActorForm from "../ui/ActorForm";
-import ActorCard from "../ui/ActorCard";
-
-export default function CreateActorPage() {
-  const [createdActors, setCreatedActors] = useState<Actor[]>([]);
-
-  function handleActorCreated(newActor: Actor) {
-    setCreatedActors((prev) => [newActor, ...prev]);
-  }
-
-  return (
-    <main>
-      <h1>Create Actor</h1>
-      <ActorForm onActorCreated={handleActorCreated} />
-
-      {createdActors.length > 0 && (
-        <section>
-          <h2>Recently Added</h2>
-          {createdActors.map((actor) => (
-            <ActorCard key={actor.id} actor={actor} />
-          ))}
-        </section>
-      )}
-    </main>
-  );
-}*/
