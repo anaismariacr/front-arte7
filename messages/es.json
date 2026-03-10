@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "actors": "Actores",
+    "createActor": "Crear actor",
+    "movies": "Peliculas"
+  },
+  "home": {
+    "title": "Bienvenido",
+    "description": "Esta es la pagina principal."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "actors": {
+    "pageTitle": "Actores",
+    "createTitle": "Crear nuevo actor",
+    "editTitle": "Editar actor",
+    "loading": "Cargando...",
+    "createdSuccess": "Actor creado correctamente.",
+    "updatedSuccess": "Actor actualizado correctamente.",
+    "createError": "Ocurrio un error al crear el actor.",
+    "updateError": "Ocurrio un error al actualizar el actor."
+  },
+  "actorForm": {
+    "fields": {
+      "name": "Nombre",
+      "photo": "Foto",
+      "nationality": "Nacionalidad",
+      "birthDate": "Fecha de nacimiento",
+      "biography": "Biografia"
+    },
+    "actions": {
+      "save": "Guardar actor",
+      "saving": "Guardando..."
+    },
+    "validation": {
+      "nameRequired": "El nombre es obligatorio.",
+      "photoInvalid": "Debe ser una URL valida.",
+      "nationalityRequired": "La nacionalidad es obligatoria.",
+      "birthDateRequired": "La fecha de nacimiento es obligatoria.",
+      "biographyRequired": "La biografia es obligatoria."
+    }
+  },
+  "movies": {
+    "pageTitle": "Peliculas",
+    "duration": "Duracion",
+    "minutes": "minutos",
+    "country": "Pais",
+    "releaseDate": "Fecha de estreno",
+    "popularity": "Popularidad",
+    "director": "Director",
+    "actors": "Actores"
+  }
+}

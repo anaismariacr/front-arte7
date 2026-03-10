@@ -3,10 +3,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  actorFormSchema,
-  ActorFormData,
-} from "../validation/actorFormSchema";
+import { useTranslations } from "next-intl";
+import { ActorFormData, createActorFormSchema } from "../validation/actorFormSchema";
 
 interface ActorFormProps {
   onSubmit: SubmitHandler<ActorFormData>;
@@ -19,6 +17,9 @@ export default function ActorForm({
   defaultValues,
   isSubmitting,
 }: ActorFormProps) {
+  const t = useTranslations("actorForm");
+  const actorFormSchema = createActorFormSchema(t);
+
   const {register, handleSubmit,reset, formState: { errors },} = useForm<ActorFormData>({
     resolver: zodResolver(actorFormSchema),
     defaultValues
@@ -34,7 +35,7 @@ export default function ActorForm({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="form-container">
         <label htmlFor="name" className="block font-medium">
-          Name:
+          {t("fields.name")}
         </label>
         <input
           id="name"
@@ -47,7 +48,7 @@ export default function ActorForm({
       </div>
       <div className="form-container">
         <label htmlFor="photo" className="block font-medium">
-          Photo:
+          {t("fields.photo")}
         </label>
         <input
           id="photo"
@@ -60,7 +61,7 @@ export default function ActorForm({
       </div>
       <div className="form-container">
         <label htmlFor="nationality" className="block font-medium">
-          Nationality:
+          {t("fields.nationality")}
         </label>
         <input
           id="nationality"
@@ -73,7 +74,7 @@ export default function ActorForm({
       </div>
       <div className="form-container">
         <label htmlFor="birthDate" className="block font-medium">
-          Birth Date:
+          {t("fields.birthDate")}
         </label>
         <input
           id="birthDate"
@@ -86,7 +87,7 @@ export default function ActorForm({
       </div>
       <div className="form-container">
         <label htmlFor="biography" className="block font-medium">
-          Biography:
+          {t("fields.biography")}
         </label>
         <input
           id="biography"
@@ -102,7 +103,7 @@ export default function ActorForm({
         disabled={isSubmitting}
         className="block mx-auto bg-white text-black font-bold py-2 px-6 rounded hover:bg-gray-200 disabled:bg-gray-300"
       >
-        {isSubmitting ? "Saving..." : "Save Actor"}
+        {isSubmitting ? t("actions.saving") : t("actions.save")}
       </button>
     </form>
   )

@@ -1,14 +1,24 @@
 import { z } from "zod";
 
-export const actorFormSchema = z.object({
-    name: z.string().min(1, "Name is required"),
-    photo: z.string().url("Must be a valid URL"),
-    nationality: z.string().min(1, "Nationality is required"),
-    birthDate: z.string().min(1, "Birth date is required"),
-    biography: z.string().min(1, "Biography is required"),
-});
+type Translate = (key: string) => string;
 
-export type ActorFormData = z.infer<typeof actorFormSchema>;
+export function createActorFormSchema(t: Translate) {
+  return z.object({
+    name: z.string().min(1, t("validation.nameRequired")),
+    photo: z.string().url(t("validation.photoInvalid")),
+    nationality: z.string().min(1, t("validation.nationalityRequired")),
+    birthDate: z.string().min(1, t("validation.birthDateRequired")),
+    biography: z.string().min(1, t("validation.biographyRequired")),
+  });
+}
+
+export interface ActorFormData {
+  name: string;
+  photo: string;
+  nationality: string;
+  birthDate: string;
+  biography: string;
+}
 
 //crear schema aca
 //usar schema en form component

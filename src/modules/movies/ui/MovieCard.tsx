@@ -1,6 +1,6 @@
 "use client";
 
-//import { useRouter }from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { Movie } from "../services/movieService";
 
 interface Props {
@@ -8,18 +8,20 @@ interface Props {
 }
 
 export default function MovieCard({ movie }: Props) {
-    //const router = useRouter();
+    const locale = useLocale();
+    const t = useTranslations("movies");
+    const formatLocale = locale === "es" ? "es-CO" : "en-US";
 
     return (
         <div className="actor-card">
             <div style={{ color: "black" }} >
                 <h2>{ movie.title } </h2>
-                <p>Release Date: { new Date(movie.releaseDate). toLocaleDateString('en-GB', {
+                <p>{t("releaseDate")}: { new Date(movie.releaseDate). toLocaleDateString(formatLocale, {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit'
                 })}</p>
-                <p>Actor: {movie.actors.map((actor) => actor.name).join(", ")}</p>
+                <p>{t("actors")}: {movie.actors.map((actor) => actor.name).join(", ")}</p>
             </div>
         </div>
     );

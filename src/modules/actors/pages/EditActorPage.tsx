@@ -1,19 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import ActorForm from "../ui/ActorForm";
 import { ActorFormData } from "../validation/actorFormSchema";
 import { fetchActorById } from "../services/actorService";
 import { useActorStore } from "@/shared/store/useActorStore";
+import { useNotificationStore } from "@/shared/store/useNotificationStore";
 
 export default function EditActorPage() {
+  const t = useTranslations("actors");
   //actor tiene info del actor que se busco
   const [actor, setActor] = useState<ActorFormData | undefined>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   //maneja el estado del edit del actor
   //no llama service directamente
   const editActor = useActorStore((state) => state.editActor);
+  const showNotification = useNotificationStore(
+    (state) => state.showNotification
+  );
   
   //redirect
   const router = useRouter();
@@ -44,10 +51,12 @@ export default function EditActorPage() {
       
       console.log("ACTOR UPDATED")
       
+      showNotification(t("updatedSuccess"), "success");
       router.push("/actors");
       router.refresh();
     } catch (error) {
       console.error("Error updating actor:", error);
+      showNotification(t("updateError"), "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -55,11 +64,11 @@ export default function EditActorPage() {
   };
   //por si data no se ha cargado yet
   //no renderiza form hasta que se cargue el actor
-  if (!actor) return <p>Loading...</p>;
+  if (!actor) return <p>{t("loading")}</p>;
 
   return (
     <div className="bg-black container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">Edit Actor</h1>
+      <h1 className="text-3xl font-bold mb-6">{t("editTitle")}</h1>
 
       <ActorForm
         onSubmit={handleUpdateActor}

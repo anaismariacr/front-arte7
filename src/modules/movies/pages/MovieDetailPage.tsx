@@ -2,10 +2,12 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { fetchMovieById, Movie } from "../services/movieService"
 import MovieDetail from "../ui/MovieDetail";
 
 export default function MovieDetailPage() {
+    const t = useTranslations("common");
     const [movie, setMovie] = useState< Movie | undefined>();
     const params = useParams();
 
@@ -26,7 +28,7 @@ export default function MovieDetailPage() {
       });
     }, [params.id]);
 
-    if (!movie) return <p>Loading...</p>;
+    if (!movie) return <p>{t("loading")}</p>;
 
     return(
         <div>

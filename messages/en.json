@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "home": "Home",
+    "actors": "Actors",
+    "createActor": "Create Actor",
+    "movies": "Movies"
+  },
+  "home": {
+    "title": "Welcome",
+    "description": "This is the main page."
+  },
+  "common": {
+    "loading": "Loading...",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "actors": {
+    "pageTitle": "Actors",
+    "createTitle": "Create New Actor",
+    "editTitle": "Edit Actor",
+    "loading": "Loading...",
+    "createdSuccess": "Actor created successfully.",
+    "updatedSuccess": "Actor updated successfully.",
+    "createError": "An error occurred while creating the actor.",
+    "updateError": "An error occurred while updating the actor."
+  },
+  "actorForm": {
+    "fields": {
+      "name": "Name",
+      "photo": "Photo",
+      "nationality": "Nationality",
+      "birthDate": "Birth date",
+      "biography": "Biography"
+    },
+    "actions": {
+      "save": "Save actor",
+      "saving": "Saving..."
+    },
+    "validation": {
+      "nameRequired": "Name is required.",
+      "photoInvalid": "Must be a valid URL.",
+      "nationalityRequired": "Nationality is required.",
+      "birthDateRequired": "Birth date is required.",
+      "biographyRequired": "Biography is required."
+    }
+  },
+  "movies": {
+    "pageTitle": "Movies",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "country": "Country",
+    "releaseDate": "Release date",
+    "popularity": "Popularity",
+    "director": "Director",
+    "actors": "Actors"
+  }
+}

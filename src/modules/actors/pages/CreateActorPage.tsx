@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import ActorForm from "../ui/ActorForm";
 import { ActorFormData } from "../validation/actorFormSchema";
 import { createActor } from "../services/actorService";
 import { useNotificationStore } from "@/shared/store/useNotificationStore";
 
 export default function CreateActorPage() {
+  const t = useTranslations("actors");
   //revisa si esta submitting rn o no, para definir como mostrar boton
   const [isSubmitting, setIsSubmitting] = useState(false);
   //posibles errores al crear actor
@@ -28,14 +30,14 @@ export default function CreateActorPage() {
     //le pasa data del form
     try{
       await createActor(data);
-      showNotification("Actor created successfully!", "success");
+      showNotification(t("createdSuccess"), "success");
       //redirect a actores despues de crear
       router.push("/actors");
     } catch (err) {
       setError(
         err instanceof Error
         ? err.message
-        : "An error ocurred while creating the actor."
+        : t("createError")
       );
     } finally {
       setIsSubmitting(false);
@@ -46,7 +48,7 @@ export default function CreateActorPage() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">Crear Nuevo Actor</h1>
+      <h1 className="text-3xl font-bold mb-6">{t("createTitle")}</h1>
       <ActorForm onSubmit={handleCreateActor} isSubmitting={isSubmitting} />
       {error && <p className="text-red-500 mt-4">{error}</p>}
     </div>
