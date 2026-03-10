@@ -1,5 +1,9 @@
 {
   "nav": {
+    "mainNavigation": "Main navigation",
+    "languageSwitcher": "Language switcher",
+    "switchToEnglish": "Switch language to English",
+    "switchToSpanish": "Switch language to Spanish",
     "home": "Home",
     "actors": "Actors",
     "createActor": "Create Actor",
@@ -35,6 +39,9 @@
     "actions": {
       "save": "Save actor",
       "saving": "Saving..."
+    },
+    "aria": {
+      "form": "Actor form"
     },
     "validation": {
       "nameRequired": "Name is required.",

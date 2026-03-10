@@ -7,11 +7,16 @@ export default function Navbar() {
 
   return (
     <div className="navbar px-6 py-4">
-      <nav className="flex items-center gap-4">
-        <Link href="/">{t("home")}</Link>
-        <Link href="/actors">{t("actors")}</Link>
-        <Link href="/crear">{t("createActor")}</Link>
-        <Link href="/movies">{t("movies")}</Link>
+      <nav className="flex items-center gap-4" aria-label={t("mainNavigation")}>
+        <Link href="/actors" aria-label={t("actors")}>
+          {t("actors")}
+        </Link>
+        <Link href="/crear" aria-label={t("createActor")}>
+          {t("createActor")}
+        </Link>
+        <Link href="/movies" aria-label={t("movies")}>
+          {t("movies")}
+        </Link>
         <LocaleSwitcher />
       </nav>
     </div>

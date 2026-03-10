@@ -1,5 +1,9 @@
 {
   "nav": {
+    "mainNavigation": "Navegacion principal",
+    "languageSwitcher": "Selector de idioma",
+    "switchToEnglish": "Cambiar idioma a ingles",
+    "switchToSpanish": "Cambiar idioma a espanol",
     "home": "Inicio",
     "actors": "Actores",
     "createActor": "Crear actor",
@@ -35,6 +39,9 @@
     "actions": {
       "save": "Guardar actor",
       "saving": "Guardando..."
+    },
+    "aria": {
+      "form": "Formulario de actor"
     },
     "validation": {
       "nameRequired": "El nombre es obligatorio.",

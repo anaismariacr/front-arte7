@@ -29,12 +29,14 @@ export default function ActorCard({ actor, onDelete }: Props) {
             </div>
             <button
                 onClick={() => router.push(`/actors/edit/${actor.id}`)}
+                aria-label={`${t("edit")} ${actor.name}`}
                 className="mt-2 bg-blue-500 text-white px-3 py-1 rounded"
             >
                 {t("edit")}
             </button>
             <button
                 onClick={() => onDelete(actor.id)}
+                aria-label={`${t("delete")} ${actor.name}`}
                 className="bg-red-500 text-white px-3 py-1 rounded"
             >
                 {t("delete")}

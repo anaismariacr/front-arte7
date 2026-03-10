@@ -32,7 +32,7 @@ export default function ActorForm({
   }, [defaultValues, reset]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} aria-label={t("aria.form")}>
       <div className="form-container">
         <label htmlFor="name" className="block font-medium">
           {t("fields.name")}
@@ -40,10 +40,15 @@ export default function ActorForm({
         <input
           id="name"
           {...register("name")}
+          aria-label={t("fields.name")}
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? "name-error" : undefined}
           className="w-full p-2 border rounded"
         />
         {errors.name && (
-          <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          <p id="name-error" className="text-red-500 text-sm mt-1">
+            {errors.name.message}
+          </p>
         )}
       </div>
       <div className="form-container">
@@ -53,10 +58,15 @@ export default function ActorForm({
         <input
           id="photo"
           {...register("photo")}
+          aria-label={t("fields.photo")}
+          aria-invalid={Boolean(errors.photo)}
+          aria-describedby={errors.photo ? "photo-error" : undefined}
           className="w-full p-2 border rounded"
         />
         {errors.photo && (
-          <p className="text-red-500 text-sm mt-1">{errors.photo.message}</p>
+          <p id="photo-error" className="text-red-500 text-sm mt-1">
+            {errors.photo.message}
+          </p>
         )}
       </div>
       <div className="form-container">
@@ -66,10 +76,15 @@ export default function ActorForm({
         <input
           id="nationality"
           {...register("nationality")}
+          aria-label={t("fields.nationality")}
+          aria-invalid={Boolean(errors.nationality)}
+          aria-describedby={errors.nationality ? "nationality-error" : undefined}
           className="w-full p-2 border rounded"
         />
         {errors.nationality && (
-          <p className="text-red-500 text-sm mt-1">{errors.nationality.message}</p>
+          <p id="nationality-error" className="text-red-500 text-sm mt-1">
+            {errors.nationality.message}
+          </p>
         )}
       </div>
       <div className="form-container">
@@ -79,10 +94,15 @@ export default function ActorForm({
         <input
           id="birthDate"
           {...register("birthDate")}
+          aria-label={t("fields.birthDate")}
+          aria-invalid={Boolean(errors.birthDate)}
+          aria-describedby={errors.birthDate ? "birthDate-error" : undefined}
           className="w-full p-2 border rounded"
         />
         {errors.birthDate && (
-          <p className="text-red-500 text-sm mt-1">{errors.birthDate.message}</p>
+          <p id="birthDate-error" className="text-red-500 text-sm mt-1">
+            {errors.birthDate.message}
+          </p>
         )}
       </div>
       <div className="form-container">
@@ -92,15 +112,21 @@ export default function ActorForm({
         <input
           id="biography"
           {...register("biography")}
+          aria-label={t("fields.biography")}
+          aria-invalid={Boolean(errors.biography)}
+          aria-describedby={errors.biography ? "biography-error" : undefined}
           className="w-full p-2 border rounded"
         />
         {errors.biography && (
-          <p className="text-red-500 text-sm mt-1">{errors.biography.message}</p>
+          <p id="biography-error" className="text-red-500 text-sm mt-1">
+            {errors.biography.message}
+          </p>
         )}
       </div>
       <button
         type="submit"
         disabled={isSubmitting}
+        aria-label={isSubmitting ? t("actions.saving") : t("actions.save")}
         className="block mx-auto bg-white text-black font-bold py-2 px-6 rounded hover:bg-gray-200 disabled:bg-gray-300"
       >
         {isSubmitting ? t("actions.saving") : t("actions.save")}
